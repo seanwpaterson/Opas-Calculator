@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Calculator - Opas Investments</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    </head>
+    <body>
+        <main>
+            <div class="container">
+                <div class="row p-4 m-5 align-items-center rounded-3 border shadow-lg">
+                    <div class="col-sm-4">
+                            <div class="col-sm-12">
+                                <label for="years" class="form-label text-sm-start visually-hidden">Number of years</label>
+                                <input type="number" class="form-control" id="years" placeholder="Number of years">
+                            </div>
+                            <br>
+                            <div class="col-sm-12">
+                                <label for="initialDeposit" class="form-label text-sm-start visually-hidden">Inital deposit</label>
+                                <input type="number" class="form-control" id="initialDeposit" placeholder="Inital deposit">
+                            </div>
+                            <br>
+                            <div class="col-sm-12">
+                                <label for="furtherDeposit" class="form-label text-sm-start visually-hidden">Desosit per portfolio</label>
+                                <input type="number" class="form-control" id="furtherDeposit" placeholder="Desosit per portfolio">
+                            </div>
+                            <br>
+                            <div class="col-sm-12">
+                                <label for="numPortfolios" class="form-label text-sm-start visually-hidden">Portfolios per year</label>
+                                <input type="number" class="form-control" id="numPortfolios" placeholder="Portfolios per year">
+                            </div>
+                            <br>
+                            <div class="col-sm-12">
+                                <label for="dividendYield" class="form-label text-sm-start visually-hidden">Dividend yield %</label>
+                                <input type="number" class="form-control" id="dividendYield" placeholder="Dividend yield %">
+                            </div>
+                            <br>
+                            <div class="col-sm-6">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="reinvest">
+                                    <label class="form-check-label" for="reinvest">Reinvest dividends</label>
+                                  </div>
+                            </div>
+                            <br>
+                            <button class="w-100 btn btn-primary btn-lg" type="button" onclick="calculate()">Calculate</button>
+                    </div>
+                    <div class="col-sm-8 text-center mb-auto">
+                        <div class="container">
+                            <div class="row p-2 bg-primary text-white">
+                                <div class="col-3">Invested</div>
+                                <div class="col-3">Savings Account</div>
+                                <div class="col-3">S&P 500 ETF</div>
+                                <div class="col-3">Opas Strategy</div>
+                            </div>
+                            <div class="row p-2">
+                                <div class="col-3" id="totalInvested">0</div>
+                                <div class="col-3" id="savingsReturn">0</div>
+                                <div class="col-3" id="sp500Return">0</div>
+                                <div class="col-3" id="opasReturn">0</div>
+                            </div>
+                            <div class="row p-2">
+                                <div class="col-3" id="totalInflation">0</div>
+                                <div class="col-3" id="savingsInflation">0</div>
+                                <div class="col-3" id="sp500Inflation">0</div>
+                                <div class="col-3" id="opasInflation">0</div>
+                            </div>
+                            <div class="row p-2">
+                                <div class="col-6"></div>
+                                <div class="col-3" id="sp500Dividends">0</div>
+                                <div class="col-3" id="opasDividends">0</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-start ps-5 mt-5 text-black-50">
+                    <p class="m-0">* Inflation calculated as 2.53% based on average from 1983 - 2022</p>
+                    <p class="m-0">** SA Returns based on average 0.015% (2022)</p>
+                    <p class="m-0">*** S&P500 based on all time average of 10.5% (2022)</p>
+                    <p class="m-0">**** Opas Strategy based on average 21.3% from 1965  to 2009 (2022)</p>
+                </div>
+            </div>
+        </main>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <script>
+            function calculate(){const e=.0253,t=.0272,r=.2108;let n=parseInt(document.getElementById("years").value),o=parseFloat(document.getElementById("initialDeposit").value),c=parseFloat(document.getElementById("furtherDeposit").value),u=parseInt(document.getElementById("numPortfolios").value),a=parseFloat(document.getElementById("dividendYield").value)/100,l=document.getElementById("reinvest"),i=o+c*u*n,m=o,d=o,s=o,y=o,p=o,g=o,F=o,M=0,f=0,v=0,I=0;for(let o=0;o<n;o++)m*=.9747,m+=c*u,d*=1.00015,d+=c*u,s*=1.00015-e,s+=c*u,y*=1.105,y+=c*u,p*=1.105-e,p+=c*u,g*=1+r,g+=c*u,F*=1+r-e,F+=c*u,M+=y*t,f+=p*t,v+=g*a,I+=F*a,l.checked&&(y+=y*t,p+=p*t,g+=g*a,F+=F*a);document.querySelector("#totalInvested").innerHTML=currencyFormatter(i),document.querySelector("#totalInflation").innerHTML=currencyFormatter(m),document.querySelector("#savingsReturn").innerHTML=currencyFormatter(d),document.querySelector("#savingsInflation").innerHTML=currencyFormatter(s),document.querySelector("#sp500Return").innerHTML=currencyFormatter(y),document.querySelector("#sp500Inflation").innerHTML=currencyFormatter(p),document.querySelector("#opasReturn").innerHTML=currencyFormatter(g),document.querySelector("#opasInflation").innerHTML=currencyFormatter(F),document.querySelector("#sp500Dividends").innerHTML=currencyFormatter(M),document.querySelector("#opasDividends").innerHTML=currencyFormatter(v)}function currencyFormatter(e){e=e.toString().replace(/\$|\,/g,""),isNaN(e)&&(e="0"),sign=e==(e=Math.abs(e)),e=Math.floor(100*e+.50000000001),pence=e%100,e=Math.floor(e/100).toString(),pence<10&&(pence="0"+pence);for(var t=0;t<Math.floor((e.length-(1+t))/3);t++)e=e.substring(0,e.length-(4*t+3))+","+e.substring(e.length-(4*t+3));return(sign?"":"-")+"£"+e+"."+pence}
+        </script>
+    </body>
+</html>
